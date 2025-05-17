@@ -1,5 +1,3 @@
-#Last edit at May 17,2025 15:31 UTC+8
-
 name: Linux Kernel Make
 
 on:
@@ -11,7 +9,7 @@ permissions:
 jobs:
 
   Kernel_Build:
-   runs-on: Ubuntu 24.04
+   runs-on: Ubuntu-latest
    steps:
       - name: Space cleanup and Initialization environment
         env:
