@@ -69,5 +69,3 @@ jobs:
           name: Image
           path: ./artifact/
 
-      - name: Final checkout
-        uses: actions/checkout@4
