@@ -11,7 +11,7 @@ jobs:
   Kernel_Build:
    runs-on: Ubuntu-latest
    steps:
-      - name: Space cleanup and Initialization environment
+      - name: Initialization environment
         run: |
           sudo -E apt update
           sudo -E apt -y full-upgrade
@@ -46,7 +46,7 @@ jobs:
 
       - name: Build kernel
         run: |
-         make -j$(proc)
+         make -j8
          sudo -E make modules_install
          sudo -E make install
 
