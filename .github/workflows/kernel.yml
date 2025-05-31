@@ -48,8 +48,6 @@ jobs:
         run: |
          cd linux-6.14.6
          make -j8
-         sudo -E make modules_install
-         sudo -E make install
 
       - name: Prepare artifact
         run: |
