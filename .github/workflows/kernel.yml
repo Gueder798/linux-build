@@ -11,15 +11,6 @@ jobs:
   Kernel_Build:
    runs-on: Ubuntu-latest
    steps:
-      - name: Initialization environment
-        run: |
-          sudo -E apt update
-          sudo -E apt -y full-upgrade
-          sudo -E apt -y install bc binutils bison dwarves flex gcc git gnupg2 gzip libelf-dev libncurses5-dev libssl-dev make openssl pahole perl-base rsync tar xz-utils
-          sudo -E systemctl daemon-reload
-          sudo -E apt autoremove
-          sudo -E apt clean
-      
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@main
         with:
@@ -33,10 +24,19 @@ jobs:
           haskell: true
           large-packages: true
           swap-storage: true
+          
+      - name: Initialization environment
+        run: |
+          sudo -E apt update
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install bc binutils bison dwarves flex gcc git gnupg2 gzip libelf-dev libncurses5-dev libssl-dev make openssl pahole perl-base rsync tar xz-utils
+          sudo -E systemctl daemon-reload
+          sudo -E apt autoremove
+          sudo -E apt clean
       
       - name: Get source code
         run: |
-         wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.14.6.tar.xz
+         wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.15.2.tar.xz
          tar -xvf linux-6.15.2.tar.xz
 
       - name: Generate config file
