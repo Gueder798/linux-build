@@ -1,0 +1,57 @@
+name: Linux Kernel Make
+
+on:
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+
+jobs:
+
+  Kernel_Build:
+   runs-on: Ubuntu-latest
+   steps:
+     - name: Free Disk Space
+       uses: jlumbroso/free-disk-space@main
+       with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: true
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true
+     
+     - name: Initialization environment
+       run: |
+          sudo -E apt update
+          sudo -E apt -y full-upgrade
+          sudo -E apt -y install bc binutils bison dwarves flex gcc git gnupg2 gzip libelf-dev libncurses5-dev libssl-dev make openssl pahole perl-base rsync tar xz-utils
+          sudo -E systemctl daemon-reload
+          sudo -E apt autoremove
+          sudo -E apt clean
+     - name: Get BusyBox Source Code
+       run: |
+          wget www.busybox.net/downloads/busybox-1.37.0.tar.bz2
+          tar -xvjf busybox-1.37.0.tar.bz2
+
+     - name: Generate config file
+       run: |
+          cd busybox-1.37.0
+          mv ./networking/tc.c ./
+          make defconfig
+
+     - name: Build Busybox
+       run: |
+          make -j 16
+          mkdir artifact
+          make install CONFIG_PREFIX=./artifact
+
+     - name: Upload artifact
+       uses: actions/upload-artifact@v4
+       with:
+          name: Result
+          path: ./artifact/*
