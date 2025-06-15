@@ -52,7 +52,7 @@ jobs:
       - name: Prepare artifact
         run: |
           mkdir artifact
-          cp $(find bzImage) ./artifact/
+          cp $(find . -name "bzImage") ./artifact/
           
       - name: Upload artifact
         uses: actions/upload-artifact@v4
