@@ -46,6 +46,7 @@ jobs:
 
      - name: Build Busybox
        run: |
+          cd busybox-1.37.0
           make -j 16
           mkdir artifact
           make install CONFIG_PREFIX=./artifact
