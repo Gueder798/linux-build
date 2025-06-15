@@ -11,7 +11,7 @@ jobs:
   Kernel_Build:
    runs-on: Ubuntu-latest
    steps:
-      - name: Free Disk Space (Ubuntu)
+      - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
           # this might remove tools that are actually needed,
@@ -46,8 +46,8 @@ jobs:
 
       - name: Build kernel
         run: |
-         cd linux-6.14.6
-         make -j8
+         cd linux-6.15.2
+         make -j16
 
       - name: Prepare artifact
         run: |
