@@ -1,4 +1,4 @@
-name: Linux Kernel Make
+name: Busybox Make
 
 on:
   workflow_dispatch: 
