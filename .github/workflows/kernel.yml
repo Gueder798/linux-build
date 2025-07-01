@@ -15,6 +15,9 @@ jobs:
   Kernel_Build:
    runs-on: Ubuntu-latest
    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 
+        
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
