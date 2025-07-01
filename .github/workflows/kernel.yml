@@ -1,5 +1,9 @@
 name: Linux Kernel Make
 
+env:
+  KERNEL : 6.15.4
+  B_KERNEL : 6
+
 on:
   workflow_dispatch: 
 
@@ -36,23 +40,22 @@ jobs:
       
       - name: Get source code
         run: |
-         wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.15.2.tar.xz
-         tar -xvf linux-6.15.2.tar.xz
+         wget https://cdn.kernel.org/pub/linux/kernel/v$B_KERNEL.x/$KERNEL.tar.xz
+         tar -xvf linux-$KERNEL.tar.xz
 
       - name: Generate config file
         run: |
-         cd linux-6.15.2
-         make defconfig
+         cp .config ./linux-$KERNEL
 
       - name: Build kernel
         run: |
-         cd linux-6.15.2
+         cd linux-$KERNEL
          make -j16
 
       - name: Prepare artifact
         run: |
           mkdir artifact
-          cp ./linux-6.15.2/arch/x86/boot/bzImage ./artifact/
+          cp ./linux-$KERNEL/arch/x86/boot/bzImage ./artifact/
           
       - name: Upload artifact
         uses: actions/upload-artifact@v4
