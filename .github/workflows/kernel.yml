@@ -40,7 +40,7 @@ jobs:
       
       - name: Get source code
         run: |
-         wget https://cdn.kernel.org/pub/linux/kernel/v$B_KERNEL.x/$KERNEL.tar.xz
+         wget https://cdn.kernel.org/pub/linux/kernel/v$B_KERNEL.x/linux-$KERNEL.tar.xz
          tar -xvf linux-$KERNEL.tar.xz
 
       - name: Generate config file
